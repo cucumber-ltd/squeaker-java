@@ -21,7 +21,7 @@ public class Stepdefs {
 
     @When("^I visit the homepage$")
     public void I_visit_the_homepage() throws Throwable {
-        browser.get("http://squeaker.heroku.com/");
+        visit("/");
     }
 
     @Then("^I should see \"([^\"]*)\"$")
@@ -30,7 +30,12 @@ public class Stepdefs {
         assertContains(expectedText, actualText);
     }
 
-    private void assertContains(String expectedText, String actualText) {
+    private void visit(String path) {
+        String url = "http://squeaker.heroku.com" + path;
+        browser.get(url);
+    }
+
+    private static void assertContains(String expectedText, String actualText) {
         if (!actualText.contains(expectedText)) {
             fail(String.format("Couldn't find [%s] in [%s]", expectedText, actualText));
         }
